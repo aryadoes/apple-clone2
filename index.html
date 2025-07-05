@@ -1,90 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>ERROR</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apple Clone</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: #fff;
-      color: #000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      color: #1d1d1f;
+    }
+
+    header {
+      background: #f5f5f7;
+      padding: 1rem 2rem;
       text-align: center;
+      font-weight: bold;
+      font-size: 0.9rem;
     }
 
-    h1 {
-      font-size: 48px;
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
-
-    p {
-      font-size: 18px;
-      color: #555;
-      max-width: 600px;
-    }
-
-    /* Optional: Add Apple-style nav bar */
     nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 12px 0;
-      background-color: #f9f9f9;
-      border-bottom: 1px solid #eaeaea;
-      font-size: 14px;
-    }
-
-    nav ul {
-      list-style: none;
       display: flex;
       justify-content: center;
-      gap: 30px;
+      gap: 2rem;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 1rem 0;
     }
 
     nav a {
       text-decoration: none;
-      color: #333;
+      color: #1d1d1f;
+      font-size: 0.9rem;
+    }
+
+    .section {
+      padding: 4rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    .section img {
+      width: 80%;
+      max-width: 800px;
+    }
+
+    .section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .section p {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .section a {
+      color: #0071e3;
+      text-decoration: none;
       font-weight: 500;
     }
 
-    nav a:hover {
-      color: #000;
-    }
-
-    .container {
-      margin-top: 80px;
-      padding: 20px;
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: #888;
     }
   </style>
 </head>
 <body>
+  <header>
+    Free delivery and free returns. <a href="#">Learn more</a>
+  </header>
 
-  <!-- Optional: Apple-style nav -->
   <nav>
-    <ul>
-      <li><a href="#">Site has been</a></li>
-      <li><a href="#">crashed</a></li>
-    </ul>
+    <a href="#">Mac</a>
+    <a href="#">iPad</a>
+    <a href="#">iPhone</a>
+    <a href="#">Watch</a>
+    <a href="#">AirPods</a>
+    <a href="#">Support</a>
   </nav>
 
-  <div class="container">
-    <h1>Pardon the interruption.</h1>
-           <p>This site cannot be restored at the moment. Apple is working on creating a new one for you soon.</p>
+  <div class="section" style="background:#f5f5f7">
+    <h2>iPad Pro</h2>
+    <p>Supercharged by M4.</p>
+    <a href="#">Learn more</a> | <a href="#">Buy</a><br><br>
+    <img src="https://www.apple.com/v/ipad/home/cc/images/overview/hero/ipad_pro_hero__bh3eq6sqfjw2_large.jpg" alt="iPad Pro">
   </div>
 
+  <div class="section">
+    <h2>MacBook Air</h2>
+    <p>Lean. Mean. M3 machine.</p>
+    <a href="#">Learn more</a> | <a href="#">Buy</a><br><br>
+    <img src="https://www.apple.com/v/macbook-air/r/images/overview/hero/hero_static__c9sislzzk06e_large.jpg" alt="MacBook Air">
+  </div>
+
+  <div class="section" style="background:#f5f5f7">
+    <h2>iPhone 15 Pro</h2>
+    <p>Titanium. So strong. So light. So Pro.</p>
+    <a href="#">Learn more</a> | <a href="#">Buy</a><br><br>
+    <img src="https://www.apple.com/v/iphone-15-pro/a/images/overview/welcome/hero_endframe__ov6ewwmbhi6e_large.jpg" alt="iPhone 15 Pro">
+  </div>
+
+  <footer>
+    © 2025 Your Apple Clone Site. This is a parody page for learning purposes.
+  </footer>
 </body>
 </html>
