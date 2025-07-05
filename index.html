@@ -121,7 +121,7 @@
     <h1>Hey <span id="user-title">User</span>, welcome to EnfrokOS!</h1>
     <p>Just to let you know:</p>
     <ul style="text-align:left; max-width: 600px;">
-      <li>If you want to use Google, look below — there's a home icon labeled "Google".</li>
+      <li>If you want to use browser, look below — there's a home icon app.</li>
       <li>This browser supports <strong>Spotify</strong> and <strong>Wikipedia</strong> only.</li>
     </ul>
     <p style="margin-top:10px">Please enter your name and password to continue:</p>
@@ -133,14 +133,16 @@
   <!-- Notice Screen -->
   <div id="notice-screen" class="hidden">
     <h2>The Operating System is incomplete, <span id="user-notice">User</span>.</h2>
-    <p>We're updating this OS very soon. This is a newly developed site and the coding system is currently having trouble implementing extra exciting features.</p>
+    <p>We're updating this OS very soon. This is a newly developed site and the coding system is currently having 
+       trouble implementing extra exciting features.</p>
     <button onclick="showLogin()">CONTINUE</button>
   </div>
 
   <!-- Login Screen -->
   <div id="login-screen" class="hidden">
     <h1>WELCOME TO enfrokOS</h1>
-    <p>This Operating System contains Calculator, Settings and Music app. However, Settings and Music app isn't totally created yet, meaning it would not function.</p>
+    <p>This Operating System contains Calculator, Settings and Music app. 
+       However, Settings and Music app isn't totally created yet, meaning it would not function.</p>
     <div>
       <input type="password" id="password" placeholder="Enter Password">
       <button id="login-btn">LOG IN</button>
@@ -248,7 +250,7 @@
           alert("This browser only supports Spotify and Wikipedia.");
         }
       } else {
-        alert("Add https:// to run the site. If it still doesn’t work, the website is not compatible.");
+        alert("This browser can now only run Wikipedia, for music click on play symbol app.");
       }
     }
 
