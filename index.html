@@ -41,7 +41,7 @@
       transition: opacity 1s ease;
     }
 
-    #startup-screen input, #startup-screen button, #startup-screen select,
+    #startup-screen input, #startup-screen button,
     #login-screen input, #login-screen button,
     #notice-screen button, #conditions-screen button {
       margin-top: 10px;
@@ -102,7 +102,7 @@
       flex-grow: 1;
     }
 
-    input[type='text'], input[type='password'], select {
+    input[type='text'], input[type='password'] {
       padding: 8px;
       font-size: 1.2rem;
       margin-bottom: 10px;
@@ -132,13 +132,6 @@
     <input type="text" id="setup-name" placeholder="Enter your name">
     <input type="password" id="setup-password" placeholder="Create a password">
     <div id="password-error" class="error-text"></div>
-    <select id="font-select">
-      <option value="-apple-system, BlinkMacSystemFont, 'San Francisco', sans-serif">Default</option>
-      <option value="'Roboto', sans-serif">Roboto</option>
-      <option value="'Arimo', sans-serif">Arimo</option>
-      <option value="'Times New Roman', serif">Times New Roman</option>
-      <option value="'Samsung One', sans-serif">SamsungOne</option>
-    </select>
     <button onclick="completeSetup()">Continue</button>
   </div>
 
@@ -184,12 +177,10 @@
   <script>
     let setupPassword = "";
     let setupName = "";
-    let setupFont = "";
 
     function completeSetup() {
       const name = document.getElementById("setup-name").value.trim();
       const pass = document.getElementById("setup-password").value.trim();
-      const font = document.getElementById("font-select").value;
       const errorBox = document.getElementById("password-error");
 
       if (pass.length < 6) {
@@ -199,9 +190,6 @@
 
       setupPassword = pass;
       setupName = name || "User";
-      setupFont = font;
-
-      document.body.style.fontFamily = font;
 
       document.getElementById("startup-screen").classList.add("hidden");
       document.getElementById("conditions-screen").classList.remove("hidden");
