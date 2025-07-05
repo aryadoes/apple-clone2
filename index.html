@@ -56,8 +56,7 @@
     }
 
     .hidden {
-      opacity: 0;
-      pointer-events: none;
+      display: none;
     }
 
     .taskbar {
@@ -143,7 +142,44 @@
     <button onclick="completeSetup()">Continue</button>
   </div>
 
-  <!-- Rest of your existing OS HTML will remain unchanged -->
+  <!-- Conditions Screen -->
+  <div id="conditions-screen" class="hidden">
+    <h2>Conditions in EnfrokOS</h2>
+    <ul style="text-align:left; max-width: 600px; margin: 20px auto;">
+      <li>• Minimising on EnfrokOS is currently not available.</li>
+      <li>• There are currently four apps: Spotify, Browser, Settings and Calculator.</li>
+      <li>• Settings app is incomplete and would be functioning soon.</li>
+      <li>• Shifting the apps from one place to another is not available yet.</li>
+    </ul>
+    <button onclick="showLogin()">Continue</button>
+  </div>
+
+  <!-- Login Screen -->
+  <div id="login-screen" class="hidden">
+    <h1 id="login-title">Welcome</h1>
+    <input type="password" id="login-password" placeholder="Enter your password">
+    <div id="login-error" class="error-text"></div>
+    <button onclick="loginUser()">Login</button>
+  </div>
+
+  <!-- Notice Screen -->
+  <div id="notice-screen" class="hidden">
+    <h1 id="os-user-title">The Operating System is incomplete</h1>
+    <p>We're updating this OS very soon, as it's a newly fresh site and the coding system is having failure to put extra exciting features.</p>
+    <button onclick="launchOS()">Continue</button>
+  </div>
+
+  <!-- Final OS UI -->
+  <div id="main-os" class="hidden">
+    <div class="taskbar">
+      <!-- Icons would go here -->
+      <div class="icon">🧮</div>
+      <div class="icon">🌐</div>
+      <div class="icon">⚙️</div>
+      <div class="icon">🎵</div>
+    </div>
+    <!-- Add windows here later -->
+  </div>
 
   <script>
     let setupPassword = "";
@@ -169,6 +205,36 @@
 
       document.getElementById("startup-screen").classList.add("hidden");
       document.getElementById("conditions-screen").classList.remove("hidden");
+    }
+
+    function showLogin() {
+      document.getElementById("conditions-screen").classList.add("hidden");
+      document.getElementById("login-title").textContent = setupName;
+      document.getElementById("login-screen").classList.remove("hidden");
+    }
+
+    function loginUser() {
+      const entered = document.getElementById("login-password").value.trim();
+      const error = document.getElementById("login-error");
+
+      if (entered.length < 6) {
+        error.textContent = "Password should be minimum 6 digits.";
+        return;
+      }
+
+      if (entered === setupPassword) {
+        error.textContent = "";
+        document.getElementById("login-screen").classList.add("hidden");
+        document.getElementById("os-user-title").textContent = setupName + "'s EnfrokOS is incomplete";
+        document.getElementById("notice-screen").classList.remove("hidden");
+      } else {
+        error.textContent = "Incorrect password.";
+      }
+    }
+
+    function launchOS() {
+      document.getElementById("notice-screen").classList.add("hidden");
+      document.getElementById("main-os").classList.remove("hidden");
     }
   </script>
 </body>
