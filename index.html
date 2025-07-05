@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Enfrok OS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=San+Francisco&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Arimo', sans-serif;
+      font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     body, html {
@@ -24,13 +24,13 @@
       overflow: hidden;
     }
 
-    #startup-screen {
+    #startup-screen, #login-screen {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #000;
+      background-color: rgba(0, 0, 0, 0.9);
       color: white;
       display: flex;
       flex-direction: column;
@@ -39,58 +39,19 @@
       z-index: 2000;
       padding: 20px;
       text-align: center;
+      transition: opacity 1s ease;
     }
 
-    #startup-screen input, #startup-screen button {
+    #startup-screen input, #startup-screen button,
+    #login-screen input, #login-screen button {
       margin-top: 10px;
       padding: 10px;
       font-size: 1rem;
     }
 
-    #login-screen {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      color: white;
-      z-index: 1000;
-      text-align: center;
-      padding: 0 20px;
-    }
-
-    #login-screen h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-
-    #login-screen p {
-      font-size: 1rem;
-      margin-bottom: 20px;
-      max-width: 500px;
-    }
-
-    #password {
-      padding: 10px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 4px;
-      margin-right: 10px;
-    }
-
-    #login-btn {
-      padding: 10px 20px;
-      font-size: 1rem;
-      cursor: pointer;
-      background: #0078d7;
-      color: white;
-      border: none;
-      border-radius: 4px;
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .taskbar {
@@ -169,7 +130,7 @@
   </div>
 
   <!-- Login Screen -->
-  <div id="login-screen">
+  <div id="login-screen" class="hidden">
     <h1>WELCOME TO enfrokOS</h1>
     <p>This Operating System contains Calculator, Settings and Music app. However, Settings and Music app isn't totally created yet, meaning it would not function.</p>
     <div>
@@ -243,6 +204,8 @@
   </div>
 
   <script>
+    let userPassword = "";
+
     function toggleWindow(id) {
       const win = document.getElementById(id);
       win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
@@ -292,14 +255,18 @@
         return;
       }
       document.getElementById("user-title").innerText = name;
-      document.getElementById("startup-screen").style.display = "none";
-      document.getElementById("login-screen").style.display = "flex";
+      userPassword = password;
+      const startup = document.getElementById("startup-screen");
+      startup.classList.add("hidden");
+      setTimeout(() => {
+        document.getElementById("login-screen").classList.remove("hidden");
+      }, 1000);
     }
 
     document.getElementById("login-btn").addEventListener("click", function () {
-      const password = document.getElementById("password").value;
-      if (password === "19841984") {
-        document.getElementById("login-screen").style.display = "none";
+      const enteredPassword = document.getElementById("password").value;
+      if (enteredPassword === userPassword) {
+        document.getElementById("login-screen").classList.add("hidden");
         document.getElementById("taskbar").style.display = "flex";
       } else {
         alert("Incorrect password");
