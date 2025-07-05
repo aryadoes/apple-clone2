@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -24,7 +24,7 @@
       overflow: hidden;
     }
 
-    #startup-screen, #login-screen, #notice-screen {
+    #startup-screen, #login-screen, #notice-screen, #conditions-screen {
       position: fixed;
       top: 0;
       left: 0;
@@ -44,10 +44,16 @@
 
     #startup-screen input, #startup-screen button,
     #login-screen input, #login-screen button,
-    #notice-screen button {
+    #notice-screen button, #conditions-screen button {
       margin-top: 10px;
       padding: 10px;
       font-size: 1rem;
+    }
+
+    .error-text {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 5px;
     }
 
     .hidden {
@@ -118,42 +124,45 @@
 <body>
   <!-- Startup Screen -->
   <div id="startup-screen">
-    <h1>Hey <span id="user-title">User</span>, welcome to EnfrokOS!</h1>
-    <p>Just to let you know:</p>
-    <ul style="text-align:left; max-width: 600px;">
-      <li>If you want to use browser, look below — there's a home icon app.</li>
-      <li>This browser supports <strong>Spotify</strong> and <strong>Wikipedia</strong> only.</li>
+    <h1>Welcome to EnfrokOS!</h1>
+    <p>Hi there! You're about to set up your personalized OS. Here's what to know before we begin:</p>
+    <ul style="text-align:left; max-width: 600px; margin: 20px auto;">
+      <li>This OS supports Spotify and Wikipedia only in its browser.</li>
+      <li>Search for your favorite artists or songs via the Spotify app.</li>
+      <li>You can log in using any password you set during this setup.</li>
     </ul>
-    <p style="margin-top:10px">Please enter your name and password to continue:</p>
-    <input type="text" id="user-name" placeholder="Enter your name">
-    <input type="password" id="user-password" placeholder="Enter your password">
-    <button onclick="startLogin()">CONTINUE</button>
+    <input type="text" id="setup-name" placeholder="Enter your name">
+    <input type="password" id="setup-password" placeholder="Create a password">
+    <div id="password-error" class="error-text"></div>
+    <button onclick="completeSetup()">Continue</button>
   </div>
 
-  <!-- Notice Screen -->
-  <div id="notice-screen" class="hidden">
-    <h2>The Operating System is incomplete, <span id="user-notice">User</span>.</h2>
-    <p>We're updating this OS very soon. This is a newly developed site and the coding system is currently having 
-       trouble implementing extra exciting features.</p>
-    <button onclick="showLogin()">CONTINUE</button>
+  <!-- Conditions Screen -->
+  <div id="conditions-screen" class="hidden">
+    <h1>Conditions in EnfrokOS</h1>
+    <ul style="text-align:left; max-width: 600px;">
+      <li>• Minimising on EnfrokOS is currently not available.</li>
+      <li>• There are currently four apps: Spotify, Browser, Settings and Calculator.</li>
+      <li>• Settings app is incomplete and would be functioning soon.</li>
+      <li>• Shifting the apps from one place to another is not available yet.</li>
+    </ul>
+    <button onclick="showLogin()">Continue</button>
   </div>
 
   <!-- Login Screen -->
   <div id="login-screen" class="hidden">
-    <h1>WELCOME TO enfrokOS</h1>
-    <p>This Operating System contains Calculator, Settings and Music app. 
-       However, Settings and Music app isn't totally created yet, meaning it would not function.</p>
-    <div>
-      <input type="password" id="password" placeholder="Enter Password">
-      <button id="login-btn">LOG IN</button>
-    </div>
+    <h1 id="login-title">Welcome</h1>
+    <p>Please enter your password to continue.</p>
+    <input type="password" id="password" placeholder="Enter Password">
+    <div id="password-warning" class="error-text"></div>
+    <button id="login-btn">LOG IN</button>
   </div>
 
   <!-- Taskbar -->
   <div class="taskbar" id="taskbar" style="display:none">
-    <img src="https://cdn-icons-png.flaticon.com/512/2897/2897762.png" class="icon" onclick="toggleWindow('calc')" title="Calculator">
+    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828919.png" class="icon" onclick="toggleWindow('calc')" title="Calculator">
     <img src="https://cdn-icons-png.flaticon.com/512/3524/3524659.png" class="icon" onclick="toggleWindow('settings')" title="Settings">
-    <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png" class="icon" onclick="toggleWindow('music')" title="Music">
+    <img src="https://cdn-icons-png.flaticon.com/512/174/174872.png" class="icon" onclick="toggleWindow('music')" title="Spotify">
     <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" class="icon" onclick="toggleWindow('browser')" title="Browser">
   </div>
 
@@ -192,11 +201,11 @@
     </div>
   </div>
 
-  <!-- Music Player (Spotify Embed) -->
+  <!-- Music Player (Spotify Full) -->
   <div class="window" id="music">
     <div class="window-header">Spotify</div>
     <div class="window-body">
-      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <iframe src="https://open.spotify.com" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
   </div>
 
@@ -204,14 +213,49 @@
   <div class="window" id="browser">
     <div class="window-header">Web Browser</div>
     <div class="window-body">
-      <input type="text" id="url" placeholder="https://wikipedia.org" style="width: 100%;" />
+      <input type="text" id="url" placeholder="https://spotify.com or https://wikipedia.org" style="width: 100%;" />
       <button onclick="loadPage()">Go</button>
       <iframe id="iframe" src="about:blank" style="width: 100%; height: 300px; margin-top: 10px;"></iframe>
     </div>
   </div>
 
   <script>
-    let userPassword = "";
+    let setupPassword = "";
+    let setupName = "";
+
+    function completeSetup() {
+      const name = document.getElementById("setup-name").value.trim();
+      const pass = document.getElementById("setup-password").value.trim();
+      const errorBox = document.getElementById("password-error");
+
+      if (pass.length < 6) {
+        errorBox.textContent = "Password should be minimum 6 digits.";
+        return;
+      }
+
+      setupPassword = pass;
+      setupName = name || "User";
+      document.getElementById("startup-screen").classList.add("hidden");
+      document.getElementById("conditions-screen").classList.remove("hidden");
+    }
+
+    function showLogin() {
+      document.getElementById("conditions-screen").classList.add("hidden");
+      document.getElementById("login-screen").classList.remove("hidden");
+      document.getElementById("login-title").textContent = `Welcome, ${setupName}`;
+    }
+
+    document.getElementById("login-btn").addEventListener("click", function () {
+      const inputPass = document.getElementById("password").value;
+      const warning = document.getElementById("password-warning");
+
+      if (inputPass === setupPassword) {
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("taskbar").style.display = "flex";
+      } else {
+        warning.textContent = "Password should be minimum 6 digits.";
+      }
+    });
 
     function toggleWindow(id) {
       const win = document.getElementById(id);
@@ -238,54 +282,20 @@
     function loadPage() {
       const url = document.getElementById("url").value.trim().toLowerCase();
       const iframe = document.getElementById("iframe");
+
       const allowed = [
-        "https://open.spotify.com",
+        "https://www.spotify.com",
+        "https://spotify.com",
         "https://www.wikipedia.org",
         "https://wikipedia.org"
       ];
-      if (url.startsWith("https://")) {
-        if (allowed.some(site => url.startsWith(site))) {
-          iframe.src = url;
-        } else {
-          alert("This browser only supports Spotify and Wikipedia.");
-        }
+
+      if (allowed.includes(url)) {
+        iframe.src = url;
       } else {
-        alert("This browser can now only run Wikipedia, for music click on play symbol app.");
+        alert("Add https:// to run or if it doesn't work, then the website is not capable of loading in this OS.");
       }
     }
-
-    function startLogin() {
-      const name = document.getElementById("user-name").value;
-      const password = document.getElementById("user-password").value;
-      if (!name || !password) {
-        alert("Please enter your name and password.");
-        return;
-      }
-      document.getElementById("user-title").innerText = name;
-      document.getElementById("user-notice").innerText = name;
-      userPassword = password;
-      document.getElementById("startup-screen").classList.add("hidden");
-      setTimeout(() => {
-        document.getElementById("notice-screen").classList.remove("hidden");
-      }, 1000);
-    }
-
-    function showLogin() {
-      document.getElementById("notice-screen").classList.add("hidden");
-      setTimeout(() => {
-        document.getElementById("login-screen").classList.remove("hidden");
-      }, 1000);
-    }
-
-    document.getElementById("login-btn").addEventListener("click", function () {
-      const enteredPassword = document.getElementById("password").value;
-      if (enteredPassword === userPassword) {
-        document.getElementById("login-screen").classList.add("hidden");
-        document.getElementById("taskbar").style.display = "flex";
-      } else {
-        alert("Incorrect password");
-      }
-    });
   </script>
 </body>
 </html>
